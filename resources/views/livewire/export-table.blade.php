@@ -41,7 +41,7 @@
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 @if ($export->isReady())
-                                    <a href="" class="text-indigo-500">Download</a>
+                                    <a href="{{ route('exports.download', $export) }}" class="text-indigo-500">Download</a>
                                 @endif
                             </td>
                         </tr>
