@@ -24,7 +24,17 @@ class ExportModal extends ModalComponent
 
     public function startExport()
     {
-        dd($this->ids);
+        $model = (new $this->model);
+
+        $export = auth()->user()->exports()->create([
+            'record_count' => $this->recordCount
+        ]);
+
+        $export->update([
+            'file' => $model->getTable() . '-' . str($export->created_at)->replace(':', '-')->slug() . '.csv'
+        ]);
+
+        // export csv
     }
 
     public function render()
