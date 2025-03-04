@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Exports\TransactionExport;
 use App\Jobs\MarkExportComplete;
+use App\Jobs\NotifyUserOfExport;
 use Livewire\Attributes\Computed;
 use LivewireUI\Modal\ModalComponent;
 use Maatwebsite\Excel\Facades\Excel;
@@ -40,7 +41,8 @@ class ExportModal extends ModalComponent
         Excel::queue($model->exporter($this->ids), $export->file, 'local', \Maatwebsite\Excel\Excel::CSV)
             ->onQueue('default')
             ->chain([
-                new MarkExportComplete($export)
+                new MarkExportComplete($export),
+                new NotifyUserOfExport(auth()->user(), $export)
             ]);
     }
 
