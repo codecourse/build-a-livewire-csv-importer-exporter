@@ -11,4 +11,9 @@ class Export extends Model
     public $casts = [
         'completed_at' => 'datetime'
     ];
+
+    public function isReady(): bool
+    {
+        return !is_null($this->completed_at);
+    }
 }

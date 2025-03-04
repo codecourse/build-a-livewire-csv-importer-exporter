@@ -44,6 +44,8 @@ class ExportModal extends ModalComponent
                 new MarkExportComplete($export),
                 new NotifyUserOfExport(auth()->user(), $export)
             ]);
+
+        return redirect()->route('exports');
     }
 
     public function render()
