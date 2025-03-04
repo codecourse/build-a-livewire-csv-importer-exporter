@@ -6,10 +6,11 @@ use App\Models\Transaction;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class TransactionExport implements FromQuery, WithMapping, WithHeadings
+class TransactionExport implements FromQuery, WithMapping, WithHeadings, WithCustomChunkSize
 {
     use Exportable;
 
@@ -44,5 +45,10 @@ class TransactionExport implements FromQuery, WithMapping, WithHeadings
             $transaction->amount,
             $transaction->date,
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

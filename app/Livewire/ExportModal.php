@@ -36,7 +36,8 @@ class ExportModal extends ModalComponent
             'file' => $model->getTable() . '-' . str($export->created_at)->replace(':', '-')->slug() . '.csv'
         ]);
 
-        Excel::store($model->exporter($this->ids), $export->file, 'local', \Maatwebsite\Excel\Excel::CSV);
+        Excel::queue($model->exporter($this->ids), $export->file, 'local', \Maatwebsite\Excel\Excel::CSV)
+            ->onQueue('default');
     }
 
     public function render()
