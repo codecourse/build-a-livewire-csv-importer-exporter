@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Exports\TransactionExport;
 use Livewire\Attributes\Computed;
 use LivewireUI\Modal\ModalComponent;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExportModal extends ModalComponent
 {
@@ -34,7 +36,7 @@ class ExportModal extends ModalComponent
             'file' => $model->getTable() . '-' . str($export->created_at)->replace(':', '-')->slug() . '.csv'
         ]);
 
-        // export csv
+        Excel::store($model->exporter($this->ids), $export->file, 'local', \Maatwebsite\Excel\Excel::CSV);
     }
 
     public function render()
