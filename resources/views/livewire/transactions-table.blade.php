@@ -7,7 +7,15 @@
             <x-secondary-button>
                 Import
             </x-secondary-button>
-            <x-secondary-button>
+            <x-secondary-button
+                wire:click="$dispatch('openModal', {
+                    component: 'export-modal',
+                    arguments: {
+                        model: 'App\\\Models\\\Transaction',
+                        ids: {{ json_encode($selectedIds) }}
+                    }
+                })"
+            >
                 Export {{ $selectedIds ? 'selected (' . count($selectedIds) . ')' : '' }}
             </x-secondary-button>
         </div>
