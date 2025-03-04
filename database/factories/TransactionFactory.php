@@ -18,7 +18,7 @@ class TransactionFactory extends Factory
     {
         return [
             'transaction_id' => fake()->unique()->shuffle('ABCDEF1234567'),
-            'date' => fake()->date(now()->subYears(10)),
+            'date' => fake()->date('Y-m-d H:i:s', 'now'),
             'amount' => fake()->randomNumber(5),
             'descriptor' => fake()->sentence(4),
         ];

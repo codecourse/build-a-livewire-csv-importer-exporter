@@ -9,4 +9,8 @@ class Transaction extends Model
 {
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory;
+
+    public $casts = [
+        'date' => 'datetime'
+    ];
 }

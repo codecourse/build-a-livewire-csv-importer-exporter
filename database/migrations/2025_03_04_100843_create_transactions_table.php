@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('transaction_id')->unique();
             $table->string('descriptor');
             $table->integer('amount');
-            $table->timestamp('date');
+            $table->datetime('date');
             $table->timestamps();
         });
     }
