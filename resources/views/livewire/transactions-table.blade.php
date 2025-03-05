@@ -4,7 +4,14 @@
             <h1 class="text-base font-semibold text-gray-900">Transactions</h1>
         </div>
         <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <x-secondary-button>
+            <x-secondary-button
+                wire:click="$dispatch('openModal', {
+                    component: 'import-modal',
+                    arguments: {
+                        model: 'App\\\Models\\\Transaction'
+                    }
+                })"
+            >
                 Import
             </x-secondary-button>
             <x-secondary-button
