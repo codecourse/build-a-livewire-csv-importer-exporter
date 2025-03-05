@@ -27,7 +27,13 @@ class ImportModal extends ModalComponent
 
     public function startImport()
     {
-        dd($this->file);
+        $model = (new $this->model);
+
+        $import = auth()->user()->imports()->create([
+            'record_count' => $this->recordCount
+        ]);
+
+        dd($import);
     }
 
     public function render()

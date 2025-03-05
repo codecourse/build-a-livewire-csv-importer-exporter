@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Export::class);
     }
+
+    public function imports()
+    {
+        return $this->hasMany(Import::class);
+    }
 }
