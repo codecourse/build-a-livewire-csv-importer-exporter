@@ -6,6 +6,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
+use Maatwebsite\Excel\Excel;
 
 class ImportModal extends ModalComponent
 {
@@ -33,7 +34,8 @@ class ImportModal extends ModalComponent
             'record_count' => $this->recordCount
         ]);
 
-        dd($import);
+        $model->importer()
+            ->queue($this->file->getRealPath(), null, Excel::CSV);
     }
 
     public function render()
