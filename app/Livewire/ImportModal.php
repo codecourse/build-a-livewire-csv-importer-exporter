@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Jobs\MarkImportComplete;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
@@ -35,7 +36,13 @@ class ImportModal extends ModalComponent
         ]);
 
         $model->importer()
-            ->queue($this->file->getRealPath(), null, Excel::CSV);
+            ->queue($this->file->getRealPath(), null, Excel::CSV)
+            ->chain([
+                new MarkImportComplete($import),
+                // can also send an email when complete
+            ]);
+
+        return redirect()->route('imports');
     }
 
     public function render()
