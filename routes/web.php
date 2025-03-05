@@ -13,6 +13,10 @@ Route::view('exports', 'exports')
     ->middleware(['auth', 'verified'])
     ->name('exports');
 
+Route::view('imports', 'imports')
+    ->middleware(['auth', 'verified'])
+    ->name('imports');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
