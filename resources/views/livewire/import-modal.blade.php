@@ -12,20 +12,38 @@
 
             @unless($file)
                 <div class="mt-2">
-                <label for="file" class="sr-only">CSV file</label>
-                <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                    <div class="text-center">
-                        <div class="flex text-sm/6 text-gray-600">
-                            <label for="file" class="relative cursor-pointer rounded-md font-semibold text-indigo-600">
-                                <span>Upload a file</span>
-                                <input id="file" name="file" type="file" class="sr-only" accept=".csv" wire:model="file">
-                            </label>
-                            <p class="pl-1">or drag and drop</p>
+                    <label for="file" class="sr-only">CSV file</label>
+                    <div
+                        x-data="{
+                            dropping: false
+                        }"
+                        class="mt-2 flex justify-center rounded-lg border border-dashed px-6 py-10"
+                        x-bind:class="{ 'border-gray-900/50': dropping, 'border-gray-900/25': !dropping }"
+                        x-on:dragover.prevent="dropping = true"
+                        x-on:dragleave.prevent="dropping = false"
+                        x-on:drop="dropping = false"
+                        x-on:drop.prevent="
+                            if ($event.dataTransfer.files.length !== 1) {
+                                return
+                            }
+
+                            const files = $event.dataTransfer.files
+
+                            @this.upload('file', files[0])
+                        "
+                    >
+                        <div class="text-center">
+                            <div class="flex text-sm/6 text-gray-600">
+                                <label for="file" class="relative cursor-pointer rounded-md font-semibold text-indigo-600">
+                                    <span>Upload a file</span>
+                                    <input id="file" name="file" type="file" class="sr-only" accept=".csv" wire:model="file">
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs/5 text-gray-600">CSV up to 10MB</p>
                         </div>
-                        <p class="text-xs/5 text-gray-600">CSV up to 10MB</p>
                     </div>
                 </div>
-            </div>
             @endunless
 
         </div>

@@ -11,6 +11,6 @@ class ExportController extends Controller
 {
     public function download(ExportDownloadRequest $request, Export $export)
     {
-        return Storage::download($export->file);
+        return Storage::download(auth()->id() . '/' . $export->file);
     }
 }
